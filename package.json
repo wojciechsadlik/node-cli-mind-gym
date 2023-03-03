@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +11,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.14.5",
     "tsc": "^2.0.4"
+  },
+  "dependencies": {
+    "inquirer": "^9.1.4"
   }
 }
