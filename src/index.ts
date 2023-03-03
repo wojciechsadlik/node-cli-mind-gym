@@ -1,19 +1,7 @@
-import inquirer from 'inquirer';
+import inquirer from "inquirer";
+import Player from "./Player.js";
+import InquirerForms from "./InquirerForms.js";
+import GameManager from "./GameManager.js";
 
-let playerName = "";
-
-async function askName() {
-    const answer = await inquirer.prompt({
-        name: "player_name",
-        type: "input",
-        message: "What is your name?",
-        default() {
-            return "Player";
-        }
-    });
-
-    playerName = answer.player_name;
-}
-
-await askName();
-console.log(`Hi ${playerName}!`);
+const gameManager = GameManager.getInstance();
+gameManager.Init();
