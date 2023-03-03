@@ -1,3 +1,4 @@
+import CharMemoryGame from "./CharMemoryGame.js";
 import InquirerForms from "./InquirerForms.js";
 import Player from "./Player.js";
 class GameManager {
@@ -10,7 +11,9 @@ class GameManager {
     }
     async Init() {
         const playerName = await InquirerForms.getName();
-        this._player = new Player(playerName);
+        GameManager.instance._player = new Player(playerName);
+        const charMemory = new CharMemoryGame();
+        charMemory.Play();
     }
 }
 export default GameManager;
