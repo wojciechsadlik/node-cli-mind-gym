@@ -1,6 +1,6 @@
 import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
-import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE } from "./utils.js";
+import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, timer } from "./utils.js";
 
 class CharMemoryGame implements IGame {
     get getName(): string {
@@ -10,6 +10,15 @@ class CharMemoryGame implements IGame {
     async Play() {
         let difficulty = await InquirerForms.charMemoDifficulty();
         let task = this.generateTask(difficulty);
+
+        for (let char of task) {
+            process.stdout.clearLine(0);
+            process.stdout.cursorTo(0);
+            process.stdout.write(char);
+            await timer(1000);
+        }
+
+        process.stdout.cursorTo(0);
         console.log(task);
     }
 

@@ -9,6 +9,7 @@ function getRandomIntArrBetween(min, max, length) {
     }
     return arr;
 }
+export const timer = (ms) => new Promise(res => setTimeout(res, ms));
 export const SMALL_A_UNICODE = 97;
 export const SMALL_Z_UNICODE = 122;
 export { getRandomIntBetween, getRandomIntArrBetween };

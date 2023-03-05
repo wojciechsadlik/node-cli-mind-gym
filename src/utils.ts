@@ -13,6 +13,8 @@ function getRandomIntArrBetween(min: number, max: number, length: number): numbe
     return arr;
 }
 
+export const timer = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export const SMALL_A_UNICODE = 97;
 export const SMALL_Z_UNICODE = 122;
 
