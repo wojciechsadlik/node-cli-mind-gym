@@ -16,6 +16,7 @@
     "tsc": "^2.0.4"
   },
   "dependencies": {
+    "chalk": "^5.2.0",
     "inquirer": "^9.1.4"
   }
 }
