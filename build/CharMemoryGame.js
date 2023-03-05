@@ -8,11 +8,13 @@ class LettersMemoryGame {
     async Play() {
         const difficulty = await this.getDifficulty();
         const task = this.generateTask(difficulty);
+        const startTime = Date.now();
         await this.showLetters(task);
         process.stdout.clearLine(0);
         process.stdout.cursorTo(0);
         const answer = await this.getAnswer();
-        this.showResult(task, answer);
+        const endTime = Date.now();
+        this.showResult(task, answer, endTime - startTime);
     }
     async getDifficulty() {
         let difficulty = await InquirerForms.getNumberDifficulty();
@@ -38,7 +40,7 @@ class LettersMemoryGame {
     async getAnswer() {
         return await InquirerForms.getStringAnswer();
     }
-    showResult(task, answer) {
+    showResult(task, answer, elapsedTime) {
         let taskFormatted = "";
         let answerFormatted = "";
         let correct = 0;
@@ -58,6 +60,7 @@ class LettersMemoryGame {
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
         console.log(`Accuracy: ${Math.round(accuracy * 100)}%`);
+        console.log(`Time: ${elapsedTime / 1000}s`);
     }
 }
 export default LettersMemoryGame;

@@ -13,6 +13,8 @@ class LettersMemoryGame implements IGame {
 
         const task = this.generateTask(difficulty);
 
+        const startTime = Date.now();
+
         await this.showLetters(task);
 
         process.stdout.clearLine(0);
@@ -20,7 +22,9 @@ class LettersMemoryGame implements IGame {
 
         const answer = await this.getAnswer();
 
-        this.showResult(task, answer);
+        const endTime = Date.now();
+
+        this.showResult(task, answer, endTime - startTime);
     }
 
     private async getDifficulty(): Promise<number> {
@@ -58,7 +62,7 @@ class LettersMemoryGame implements IGame {
         return await InquirerForms.getStringAnswer();
     }
 
-    private showResult(task: string, answer: string): void {
+    private showResult(task: string, answer: string, elapsedTime: number): void {
         let taskFormatted = "";
         let answerFormatted = "";
         let correct = 0;
@@ -79,6 +83,7 @@ class LettersMemoryGame implements IGame {
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
         console.log(`Accuracy: ${Math.round(accuracy * 100)}%`);
+        console.log(`Time: ${elapsedTime/1000}s`);
     }
 }
 
