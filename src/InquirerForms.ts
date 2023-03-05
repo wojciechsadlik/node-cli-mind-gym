@@ -27,6 +27,19 @@ abstract class InquirerForms {
         
         return answer.chose_game;
     }
+
+    static async charMemoDifficulty(): Promise<number> {
+        const answer = await inquirer.prompt({
+            name: "difficulty",
+            type: "number",
+            message: "Enter difficulty",
+            default() {
+                return 0;
+            }
+        });
+    
+        return answer.difficulty;
+    }
 }
 
 export default InquirerForms;
