@@ -1,5 +1,8 @@
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE } from "./utils.js";
 class CharMemoryGame {
+    get getName() {
+        return "Character Memory";
+    }
     Play() {
         console.log(this.generateTask(30));
     }

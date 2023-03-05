@@ -1,4 +1,5 @@
 interface IGame {
+    get getName(): string;
     Play(): void;
 }
 
