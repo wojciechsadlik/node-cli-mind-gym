@@ -8,10 +8,11 @@ class LettersMemoryGame implements IGame {
     }
 
     async Play() {
-        let difficulty = await InquirerForms.lettersMemoDifficulty();
-        let task = this.generateTask(difficulty);
+        const difficulty = await this.getDifficulty();
 
-        console.log("Press any key to continue...");
+        const task = this.generateTask(difficulty);
+
+        console.log(`You'll see ${difficulty} letters one by one, press any key to continue`);
         for (let i = 0; i < task.length; i++) {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
@@ -20,8 +21,21 @@ class LettersMemoryGame implements IGame {
             await pressKeyToContinue();
         }
 
+        process.stdout.clearLine(0);
         process.stdout.cursorTo(0);
+
         console.log(task);
+    }
+
+    private async getDifficulty(): Promise<number> {
+        let difficulty: number = await InquirerForms.lettersMemoDifficulty();
+
+        while (difficulty < 1) {
+            console.log("Difficulty has to be greater than 0");
+            difficulty = await InquirerForms.lettersMemoDifficulty();
+        }
+
+        return difficulty;
     }
 
     private generateTask(length: number): string {

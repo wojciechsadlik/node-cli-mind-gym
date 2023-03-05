@@ -32,13 +32,13 @@ abstract class InquirerForms {
         const answer = await inquirer.prompt({
             name: "difficulty",
             type: "number",
-            message: "Enter difficulty",
+            message: "Enter difficulty (> 0)",
             default() {
-                return 0;
+                return 1;
             }
         });
     
-        return answer.difficulty;
+        return Math.floor(answer.difficulty);
     }
 }
 
