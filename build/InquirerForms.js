@@ -12,7 +12,7 @@ class InquirerForms {
         console.log(`Hi ${answer.player_name}!`);
         return answer.player_name;
     }
-    static async choseGame(games) {
+    static async chooseGame(games) {
         const answer = await inquirer.prompt({
             name: "chose_game",
             type: "list",

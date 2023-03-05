@@ -17,7 +17,7 @@ abstract class InquirerForms {
         return answer.player_name;
     }
 
-    static async choseGame(games: IGame[]): Promise<string> {
+    static async chooseGame(games: IGame[]): Promise<string> {
         const answer = await inquirer.prompt({
             name: "chose_game",
             type: "list",
