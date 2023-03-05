@@ -32,5 +32,13 @@ class InquirerForms {
         });
         return Math.floor(answer.difficulty);
     }
+    static async lettersMemoGetAnswer() {
+        const answer = await inquirer.prompt({
+            name: "answer",
+            type: "input",
+            message: "Enter letters"
+        });
+        return answer.answer;
+    }
 }
 export default InquirerForms;

@@ -12,19 +12,15 @@ class LettersMemoryGame implements IGame {
 
         const task = this.generateTask(difficulty);
 
-        console.log(`You'll see ${difficulty} letters one by one, press any key to continue`);
-        for (let i = 0; i < task.length; i++) {
-            process.stdout.clearLine(0);
-            process.stdout.cursorTo(0);
-            process.stdout.write(` ${i+1}: ${task[i]} `);
-
-            await pressKeyToContinue();
-        }
+        await this.showLetters(task);
 
         process.stdout.clearLine(0);
         process.stdout.cursorTo(0);
 
-        console.log(task);
+        const answer = await this.getAnswer();
+
+        console.log(`Task:   ${task}`);
+        console.log(`Answer: ${answer}`);
     }
 
     private async getDifficulty(): Promise<number> {
@@ -45,6 +41,21 @@ class LettersMemoryGame implements IGame {
                 length));
 
         return randomStr;
+    }
+
+    private async showLetters(task: string): Promise<void> {
+        console.log(`You'll see ${task.length} letters one by one, press any key to continue`);
+        for (let i = 0; i < task.length; i++) {
+            process.stdout.clearLine(0);
+            process.stdout.cursorTo(0);
+            process.stdout.write(` ${i+1}: ${task[i]} `);
+
+            await pressKeyToContinue();
+        }
+    }
+
+    private async getAnswer(): Promise<string> {
+        return await InquirerForms.lettersMemoGetAnswer();
     }
 }
 

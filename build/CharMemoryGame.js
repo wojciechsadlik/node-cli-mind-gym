@@ -7,16 +7,12 @@ class LettersMemoryGame {
     async Play() {
         const difficulty = await this.getDifficulty();
         const task = this.generateTask(difficulty);
-        console.log(`You'll see ${difficulty} letters one by one, press any key to continue`);
-        for (let i = 0; i < task.length; i++) {
-            process.stdout.clearLine(0);
-            process.stdout.cursorTo(0);
-            process.stdout.write(` ${i + 1}: ${task[i]} `);
-            await pressKeyToContinue();
-        }
+        await this.showLetters(task);
         process.stdout.clearLine(0);
         process.stdout.cursorTo(0);
-        console.log(task);
+        const answer = await this.getAnswer();
+        console.log(`Task:   ${task}`);
+        console.log(`Answer: ${answer}`);
     }
     async getDifficulty() {
         let difficulty = await InquirerForms.lettersMemoDifficulty();
@@ -29,6 +25,18 @@ class LettersMemoryGame {
     generateTask(length) {
         const randomStr = String.fromCharCode(...getRandomIntArrBetween(SMALL_A_UNICODE, SMALL_Z_UNICODE + 1, length));
         return randomStr;
+    }
+    async showLetters(task) {
+        console.log(`You'll see ${task.length} letters one by one, press any key to continue`);
+        for (let i = 0; i < task.length; i++) {
+            process.stdout.clearLine(0);
+            process.stdout.cursorTo(0);
+            process.stdout.write(` ${i + 1}: ${task[i]} `);
+            await pressKeyToContinue();
+        }
+    }
+    async getAnswer() {
+        return await InquirerForms.lettersMemoGetAnswer();
     }
 }
 export default LettersMemoryGame;
