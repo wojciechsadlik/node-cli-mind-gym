@@ -15,7 +15,8 @@ class LettersMemoryGame {
         let answer = await this.getAnswer();
         const endTime = Date.now();
         answer = answer.replace(/\s+/g, "");
-        this.showResult(task, answer, endTime - startTime);
+        const result = this.calculateResult(task, answer, endTime - startTime);
+        this.showResult(task, answer, result);
     }
     async getDifficulty() {
         let difficulty = await InquirerForms.getNumberDifficulty();
@@ -41,16 +42,26 @@ class LettersMemoryGame {
     async getAnswer() {
         return await InquirerForms.getStringAnswer();
     }
-    showResult(task, answer, elapsedTime) {
+    calculateResult(task, answer, elapsedTime) {
+        const checkLength = Math.min(task.length, answer.length);
+        let correct = 0;
+        for (let i = 0; i < checkLength; i++) {
+            if (task[i] === answer[i]) {
+                correct++;
+            }
+        }
+        const accuracy = (correct / task.length) * 100;
+        const elapsedTimeS = elapsedTime / 1000;
+        return { accuracy: accuracy, elapsedTime: elapsedTimeS };
+    }
+    showResult(task, answer, result) {
         let taskFormatted = "";
         let answerFormatted = "";
-        let correct = 0;
         for (let i = 0; i < task.length; i++) {
             let [t, a] = [task[i], answer[i]];
             if (a && t === a) {
                 taskFormatted += t;
                 answerFormatted += a;
-                correct++;
             }
             else {
                 taskFormatted += chalk.green(t);
@@ -59,11 +70,10 @@ class LettersMemoryGame {
             taskFormatted += " ";
             answerFormatted += " ";
         }
-        let accuracy = correct / task.length;
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
-        console.log(`Accuracy: ${Math.round(accuracy * 100)}%`);
-        console.log(`Time: ${(elapsedTime / 1000).toFixed(1)}s`);
+        console.log(`Accuracy: ${result.accuracy.toFixed(1)}%`);
+        console.log(`Time: ${result.elapsedTime.toFixed(1)}s`);
     }
 }
 export default LettersMemoryGame;

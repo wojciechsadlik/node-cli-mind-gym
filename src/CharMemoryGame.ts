@@ -3,6 +3,11 @@ import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
 import chalk from "chalk";
 
+interface IResult {
+    accuracy: number;
+    elapsedTime: number;
+}
+
 class LettersMemoryGame implements IGame {
     get getName(): string {
         return "Letters Memory";
@@ -26,7 +31,9 @@ class LettersMemoryGame implements IGame {
 
         answer = answer.replace(/\s+/g, "");
 
-        this.showResult(task, answer, endTime - startTime);
+        const result = this.calculateResult(task, answer, endTime - startTime);
+
+        this.showResult(task, answer, result);
     }
 
     private async getDifficulty(): Promise<number> {
@@ -64,16 +71,28 @@ class LettersMemoryGame implements IGame {
         return await InquirerForms.getStringAnswer();
     }
 
-    private showResult(task: string, answer: string, elapsedTime: number): void {
+    private calculateResult(task: string, answer: string, elapsedTime: number): IResult {
+        const checkLength = Math.min(task.length, answer.length);
+        let correct = 0;
+        for (let i = 0; i < checkLength; i++) {
+            if (task[i] === answer[i]) {
+                correct++;
+            }
+        }
+        const accuracy = (correct / task.length) * 100;
+        const elapsedTimeS = elapsedTime / 1000;
+
+        return {accuracy: accuracy, elapsedTime: elapsedTimeS};
+    }
+
+    private showResult(task: string, answer: string, result: IResult): void {
         let taskFormatted = "";
         let answerFormatted = "";
-        let correct = 0;
         for (let i = 0; i < task.length; i++) {
             let [t, a] = [task[i], answer[i]];
             if (a && t === a) {
                 taskFormatted += t;
                 answerFormatted += a;
-                correct++;
             }
             else {
                 taskFormatted += chalk.green(t);
@@ -83,12 +102,11 @@ class LettersMemoryGame implements IGame {
             taskFormatted += " ";
             answerFormatted += " ";
         }
-        let accuracy = correct / task.length;
 
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
-        console.log(`Accuracy: ${Math.round(accuracy * 100)}%`);
-        console.log(`Time: ${(elapsedTime/1000).toFixed(1)}s`);
+        console.log(`Accuracy: ${result.accuracy.toFixed(1)}%`);
+        console.log(`Time: ${result.elapsedTime.toFixed(1)}s`);
     }
 }
 
