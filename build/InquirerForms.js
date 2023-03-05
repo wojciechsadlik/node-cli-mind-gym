@@ -21,7 +21,7 @@ class InquirerForms {
         });
         return answer.chose_game;
     }
-    static async charMemoDifficulty() {
+    static async lettersMemoDifficulty() {
         const answer = await inquirer.prompt({
             name: "difficulty",
             type: "number",

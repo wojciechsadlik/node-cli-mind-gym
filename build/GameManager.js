@@ -1,10 +1,10 @@
-import CharMemoryGame from "./CharMemoryGame.js";
+import LettersMemoryGame from "./CharMemoryGame.js";
 import InquirerForms from "./InquirerForms.js";
 import Player from "./Player.js";
 class GameManager {
     constructor() {
         this._games = [];
-        this._games.push(new CharMemoryGame());
+        this._games.push(new LettersMemoryGame());
     }
     static getInstance() {
         if (!GameManager.instance) {

@@ -1,17 +1,17 @@
 import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
-class CharMemoryGame {
+class LettersMemoryGame {
     get getName() {
-        return "Character Memory";
+        return "Letters Memory";
     }
     async Play() {
-        let difficulty = await InquirerForms.charMemoDifficulty();
+        let difficulty = await InquirerForms.lettersMemoDifficulty();
         let task = this.generateTask(difficulty);
         console.log("Press any key to continue...");
         for (let i = 0; i < task.length; i++) {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
-            process.stdout.write(`${i + 1}: ${task[i]}`);
+            process.stdout.write(` ${i + 1}: ${task[i]} `);
             await pressKeyToContinue();
         }
         process.stdout.cursorTo(0);
@@ -22,4 +22,4 @@ class CharMemoryGame {
         return randomStr;
     }
 }
-export default CharMemoryGame;
+export default LettersMemoryGame;

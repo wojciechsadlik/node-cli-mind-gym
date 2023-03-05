@@ -2,20 +2,20 @@ import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, timer, pressKeyToContinue } from "./utils.js";
 
-class CharMemoryGame implements IGame {
+class LettersMemoryGame implements IGame {
     get getName(): string {
-        return "Character Memory";
+        return "Letters Memory";
     }
 
     async Play() {
-        let difficulty = await InquirerForms.charMemoDifficulty();
+        let difficulty = await InquirerForms.lettersMemoDifficulty();
         let task = this.generateTask(difficulty);
 
         console.log("Press any key to continue...");
         for (let i = 0; i < task.length; i++) {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
-            process.stdout.write(`${i+1}: ${task[i]}`);
+            process.stdout.write(` ${i+1}: ${task[i]} `);
 
             await pressKeyToContinue();
         }
@@ -34,4 +34,4 @@ class CharMemoryGame implements IGame {
     }
 }
 
-export default CharMemoryGame;
+export default LettersMemoryGame;
