@@ -1,5 +1,5 @@
 import InquirerForms from "./InquirerForms.js";
-import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, timer } from "./utils.js";
+import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
 class CharMemoryGame {
     get getName() {
         return "Character Memory";
@@ -7,11 +7,12 @@ class CharMemoryGame {
     async Play() {
         let difficulty = await InquirerForms.charMemoDifficulty();
         let task = this.generateTask(difficulty);
-        for (let char of task) {
+        console.log("Press any key to continue...");
+        for (let i = 0; i < task.length; i++) {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
-            process.stdout.write(char);
-            await timer(1000);
+            process.stdout.write(`${i + 1}: ${task[i]}`);
+            await pressKeyToContinue();
         }
         process.stdout.cursorTo(0);
         console.log(task);
