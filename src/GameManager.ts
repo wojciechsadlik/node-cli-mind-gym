@@ -24,8 +24,11 @@ class GameManager {
         GameManager.instance._player = new Player(playerName);
 
         let gameName = await InquirerForms.choseGame(GameManager.instance._games);
-
-        GameManager.instance._games.find(game => game.getName === gameName)?.Play();
+        let currentGame = GameManager.instance._games.find(game => game.getName === gameName);
+        
+        if (currentGame) {
+            currentGame.Play();
+        }
     }
 }
 

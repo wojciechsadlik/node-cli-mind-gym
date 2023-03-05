@@ -13,11 +13,13 @@ class GameManager {
         return GameManager.instance;
     }
     async Init() {
-        var _a;
         const playerName = await InquirerForms.getName();
         GameManager.instance._player = new Player(playerName);
         let gameName = await InquirerForms.choseGame(GameManager.instance._games);
-        (_a = GameManager.instance._games.find(game => game.getName === gameName)) === null || _a === void 0 ? void 0 : _a.Play();
+        let currentGame = GameManager.instance._games.find(game => game.getName === gameName);
+        if (currentGame) {
+            currentGame.Play();
+        }
     }
 }
 export default GameManager;

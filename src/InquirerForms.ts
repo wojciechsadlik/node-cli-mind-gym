@@ -22,7 +22,7 @@ abstract class InquirerForms {
             name: "chose_game",
             type: "list",
             message: "Pick a game",
-            choices: Array.from(games, game => game.getName)
+            choices: Array.from(games, game => game.getName).concat(["Exit"])
         });
         
         return answer.chose_game;
