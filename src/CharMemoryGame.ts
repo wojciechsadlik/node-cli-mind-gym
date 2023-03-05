@@ -20,9 +20,11 @@ class LettersMemoryGame implements IGame {
         process.stdout.clearLine(0);
         process.stdout.cursorTo(0);
 
-        const answer = await this.getAnswer();
+        let answer = await this.getAnswer();
 
         const endTime = Date.now();
+
+        answer = answer.replace(/\s+/g, "");
 
         this.showResult(task, answer, endTime - startTime);
     }
@@ -77,13 +79,16 @@ class LettersMemoryGame implements IGame {
                 taskFormatted += chalk.green(t);
                 answerFormatted += a ? chalk.red(a) : chalk.red("_");
             }
+
+            taskFormatted += " ";
+            answerFormatted += " ";
         }
         let accuracy = correct / task.length;
 
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
         console.log(`Accuracy: ${Math.round(accuracy * 100)}%`);
-        console.log(`Time: ${elapsedTime/1000}s`);
+        console.log(`Time: ${(elapsedTime/1000).toFixed(1)}s`);
     }
 }
 
