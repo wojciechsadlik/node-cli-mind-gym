@@ -15,10 +15,10 @@ class LettersMemoryGame {
         console.log(`Answer: ${answer}`);
     }
     async getDifficulty() {
-        let difficulty = await InquirerForms.lettersMemoDifficulty();
+        let difficulty = await InquirerForms.getNumberDifficulty();
         while (difficulty < 1) {
             console.log("Difficulty has to be greater than 0");
-            difficulty = await InquirerForms.lettersMemoDifficulty();
+            difficulty = await InquirerForms.getNumberDifficulty();
         }
         return difficulty;
     }
@@ -36,7 +36,7 @@ class LettersMemoryGame {
         }
     }
     async getAnswer() {
-        return await InquirerForms.lettersMemoGetAnswer();
+        return await InquirerForms.getStringAnswer();
     }
 }
 export default LettersMemoryGame;

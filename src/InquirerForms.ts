@@ -28,7 +28,7 @@ abstract class InquirerForms {
         return answer.chose_game;
     }
 
-    static async lettersMemoDifficulty(): Promise<number> {
+    static async getNumberDifficulty(): Promise<number> {
         const answer = await inquirer.prompt({
             name: "difficulty",
             type: "number",
@@ -41,7 +41,7 @@ abstract class InquirerForms {
         return Math.floor(answer.difficulty);
     }
 
-    static async lettersMemoGetAnswer(): Promise<string> {
+    static async getStringAnswer(): Promise<string> {
         const answer = await inquirer.prompt({
             name: "answer",
             type: "input",
