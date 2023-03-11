@@ -21,10 +21,14 @@ class GameManager {
 
     async Start() {
         const playerName = await InquirerForms.getName();
-        GameManager.instance._player = new Player(playerName);
+        this._player = new Player(playerName);
 
-        let gameName = await InquirerForms.chooseGame(GameManager.instance._games);
-        let currentGame = GameManager.instance._games.find(game => game.getName === gameName);
+        process.on('exit', () => {
+            this._player.handleExit();
+        });
+
+        let gameName = await InquirerForms.chooseGame(this._games);
+        let currentGame = this._games.find(game => game.getName === gameName);
         
         if (currentGame) {
             await currentGame.Play();

@@ -1,10 +1,19 @@
+import PlayerDataManager from "./PlayerDataManager.js";
+
 class Player {
+    private _saveManager: PlayerDataManager;
     constructor (
-        private name: string
-    ) {}
+        private _name: string
+    ) {
+        this._saveManager = new PlayerDataManager(this._name);
+    }
 
     get getName() {
-        return this.name;
+        return this._name;
+    }
+
+    handleExit() {
+        this._saveManager.saveData();
     }
 }
 
