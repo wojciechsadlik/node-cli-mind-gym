@@ -1,15 +1,15 @@
-interface IGameData {
+interface IGameResult {
     time: number;
     accuracy: number;
 }
 
 interface IGameRecords {
     gameName: string;
-    gameData: IGameData[];
+    gameData: IGameResult[];
 }
 
 interface ISaveStructure {
     gameRecords: IGameRecords[];
 }
 
-export {ISaveStructure, IGameRecords, IGameData};
+export {ISaveStructure, IGameRecords, IGameResult};

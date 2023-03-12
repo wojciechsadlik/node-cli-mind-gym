@@ -31,7 +31,7 @@ class GameManager {
         let currentGame = this._games.find(game => game.getName === gameName);
         
         if (currentGame) {
-            await currentGame.Play();
+            const result = await currentGame.Play();
         }
     }
 }

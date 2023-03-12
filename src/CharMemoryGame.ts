@@ -2,18 +2,14 @@ import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
 import chalk from "chalk";
-
-interface IResult {
-    accuracy: number;
-    elapsedTime: number;
-}
+import { IGameResult } from "./ISaveStructure.js";
 
 class LettersMemoryGame implements IGame {
     get getName(): string {
         return "Letters Memory";
     }
 
-    async Play() {
+    async Play(): Promise<IGameResult> {
         const difficulty = await this.getDifficulty();
 
         const task = this.generateTask(difficulty);
@@ -34,6 +30,8 @@ class LettersMemoryGame implements IGame {
         const result = this.calculateResult(task, answer, endTime - startTime);
 
         this.showResult(task, answer, result);
+
+        return result;
     }
 
     private async getDifficulty(): Promise<number> {
@@ -71,7 +69,7 @@ class LettersMemoryGame implements IGame {
         return await InquirerForms.getStringAnswer();
     }
 
-    private calculateResult(task: string, answer: string, elapsedTime: number): IResult {
+    private calculateResult(task: string, answer: string, elapsedTime: number): IGameResult {
         const checkLength = Math.min(task.length, answer.length);
         let correct = 0;
         for (let i = 0; i < checkLength; i++) {
@@ -82,10 +80,10 @@ class LettersMemoryGame implements IGame {
         const accuracy = (correct / task.length) * 100;
         const elapsedTimeS = elapsedTime / 1000;
 
-        return {accuracy: accuracy, elapsedTime: elapsedTimeS};
+        return {accuracy: accuracy, time: elapsedTimeS};
     }
 
-    private showResult(task: string, answer: string, result: IResult): void {
+    private showResult(task: string, answer: string, result: IGameResult): void {
         let taskFormatted = "";
         let answerFormatted = "";
         for (let i = 0; i < task.length; i++) {
@@ -106,7 +104,7 @@ class LettersMemoryGame implements IGame {
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
         console.log(`Accuracy: ${result.accuracy.toFixed(1)}%`);
-        console.log(`Time: ${result.elapsedTime.toFixed(1)}s`);
+        console.log(`Time: ${result.time.toFixed(1)}s`);
     }
 }
 

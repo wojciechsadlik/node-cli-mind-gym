@@ -1,6 +1,8 @@
+import { IGameResult } from "./ISaveStructure.js";
+
 interface IGame {
     get getName(): string;
-    Play(): void;
+    Play(): Promise<IGameResult>;
 }
 
 export default IGame;

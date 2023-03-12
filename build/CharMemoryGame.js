@@ -17,6 +17,7 @@ class LettersMemoryGame {
         answer = answer.replace(/\s+/g, "");
         const result = this.calculateResult(task, answer, endTime - startTime);
         this.showResult(task, answer, result);
+        return result;
     }
     async getDifficulty() {
         let difficulty = await InquirerForms.getNumberDifficulty();
@@ -52,7 +53,7 @@ class LettersMemoryGame {
         }
         const accuracy = (correct / task.length) * 100;
         const elapsedTimeS = elapsedTime / 1000;
-        return { accuracy: accuracy, elapsedTime: elapsedTimeS };
+        return { accuracy: accuracy, time: elapsedTimeS };
     }
     showResult(task, answer, result) {
         let taskFormatted = "";
@@ -73,7 +74,7 @@ class LettersMemoryGame {
         console.log(`Task:   ${taskFormatted}`);
         console.log(`Answer: ${answerFormatted}`);
         console.log(`Accuracy: ${result.accuracy.toFixed(1)}%`);
-        console.log(`Time: ${result.elapsedTime.toFixed(1)}s`);
+        console.log(`Time: ${result.time.toFixed(1)}s`);
     }
 }
 export default LettersMemoryGame;
