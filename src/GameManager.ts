@@ -32,6 +32,7 @@ class GameManager {
         
         if (currentGame) {
             const result = await currentGame.Play();
+            this._player.addGameResult(currentGame.getName, result);
         }
     }
 }

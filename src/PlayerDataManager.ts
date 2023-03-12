@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {ISaveStructure} from "./ISaveStructure.js";
+import {IGameResult, ISaveStructure} from "./ISaveStructure.js";
 
 class PlayerDataManager {
     private readonly SAVES_DIR = './saves/';
@@ -22,6 +22,22 @@ class PlayerDataManager {
 
     saveData() {
         fs.writeFileSync(this._fpath, JSON.stringify(this._playerData));
+    }
+
+    addGameResult(gameName: string, result: IGameResult) {
+        const gameResults = this._playerData.gameRecords.find(game =>
+            game.gameName === gameName);
+
+        if (!gameResults) {
+            this._playerData.gameRecords.push({
+                gameName: gameName,
+                gameResults: [result]
+            });
+
+            return;
+        }
+
+        gameResults.gameResults.push(result);
     }
 }
 

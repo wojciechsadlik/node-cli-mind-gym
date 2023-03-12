@@ -10,5 +10,8 @@ class Player {
     handleExit() {
         this._saveManager.saveData();
     }
+    addGameResult(gameName, result) {
+        this._saveManager.addGameResult(gameName, result);
+    }
 }
 export default Player;

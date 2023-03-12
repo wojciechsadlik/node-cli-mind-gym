@@ -22,7 +22,7 @@ class GameManager {
         let currentGame = this._games.find(game => game.getName === gameName);
         if (currentGame) {
             const result = await currentGame.Play();
-            console.log(result);
+            this._player.addGameResult(currentGame.getName, result);
         }
     }
 }

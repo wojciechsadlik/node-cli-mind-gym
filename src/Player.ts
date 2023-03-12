@@ -1,3 +1,4 @@
+import { IGameResult } from "./ISaveStructure.js";
 import PlayerDataManager from "./PlayerDataManager.js";
 
 class Player {
@@ -14,6 +15,10 @@ class Player {
 
     handleExit() {
         this._saveManager.saveData();
+    }
+
+    addGameResult(gameName: string, result: IGameResult) {
+        this._saveManager.addGameResult(gameName, result);
     }
 }
 

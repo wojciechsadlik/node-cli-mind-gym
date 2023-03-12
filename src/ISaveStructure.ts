@@ -5,7 +5,7 @@ interface IGameResult {
 
 interface IGameRecords {
     gameName: string;
-    gameData: IGameResult[];
+    gameResults: IGameResult[];
 }
 
 interface ISaveStructure {

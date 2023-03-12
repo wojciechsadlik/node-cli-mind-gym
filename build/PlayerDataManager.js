@@ -15,5 +15,16 @@ class PlayerDataManager {
     saveData() {
         fs.writeFileSync(this._fpath, JSON.stringify(this._playerData));
     }
+    addGameResult(gameName, result) {
+        const gameResults = this._playerData.gameRecords.find(game => game.gameName === gameName);
+        if (!gameResults) {
+            this._playerData.gameRecords.push({
+                gameName: gameName,
+                gameResults: [result]
+            });
+            return;
+        }
+        gameResults.gameResults.push(result);
+    }
 }
 export default PlayerDataManager;
