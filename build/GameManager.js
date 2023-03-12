@@ -18,11 +18,15 @@ class GameManager {
         process.on('exit', () => {
             this._player.handleExit();
         });
-        let gameName = await InquirerForms.chooseGame(this._games);
-        let currentGame = this._games.find(game => game.getName === gameName);
-        if (currentGame) {
-            const result = await currentGame.Play();
-            this._player.addGameResult(currentGame.getName, result);
+        while (true) {
+            let option = await InquirerForms.mainMenu(this._games);
+            if (option === InquirerForms.EXIT)
+                break;
+            let currentGame = this._games.find(game => game.getName === option);
+            if (currentGame) {
+                const result = await currentGame.Play();
+                this._player.addGameResult(currentGame.getName, result);
+            }
         }
     }
 }

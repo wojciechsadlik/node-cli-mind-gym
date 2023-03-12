@@ -2,6 +2,9 @@ import inquirer from "inquirer";
 import IGame from "./IGame.js";
 
 abstract class InquirerForms {
+    static readonly EXIT = "Exit";
+    static readonly DISPLAY_STATS = "Display stats";
+
     static async getName(): Promise<string> {
         const answer = await inquirer.prompt({
             name: "player_name",
@@ -17,15 +20,17 @@ abstract class InquirerForms {
         return answer.player_name;
     }
 
-    static async chooseGame(games: IGame[]): Promise<string> {
+    static async mainMenu(games: IGame[]): Promise<string> {
         const answer = await inquirer.prompt({
-            name: "chose_game",
+            name: "chosen_option",
             type: "list",
             message: "Pick a game",
-            choices: Array.from(games, game => game.getName).concat(["Exit"])
+            choices: Array.from(games, game => game.getName)
+                        .concat([this.DISPLAY_STATS])
+                        .concat([this.EXIT])
         });
         
-        return answer.chose_game;
+        return answer.chosen_option;
     }
 
     static async getNumberDifficulty(): Promise<number> {

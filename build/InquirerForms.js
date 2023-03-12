@@ -12,14 +12,16 @@ class InquirerForms {
         console.log(`Hi ${answer.player_name}!`);
         return answer.player_name;
     }
-    static async chooseGame(games) {
+    static async mainMenu(games) {
         const answer = await inquirer.prompt({
-            name: "chose_game",
+            name: "chosen_option",
             type: "list",
             message: "Pick a game",
-            choices: Array.from(games, game => game.getName).concat(["Exit"])
+            choices: Array.from(games, game => game.getName)
+                .concat([this.DISPLAY_STATS])
+                .concat([this.EXIT])
         });
-        return answer.chose_game;
+        return answer.chosen_option;
     }
     static async getNumberDifficulty() {
         const answer = await inquirer.prompt({
@@ -41,4 +43,6 @@ class InquirerForms {
         return answer.answer;
     }
 }
+InquirerForms.EXIT = "Exit";
+InquirerForms.DISPLAY_STATS = "Display stats";
 export default InquirerForms;
