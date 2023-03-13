@@ -67,17 +67,6 @@ abstract class InquirerForms {
 
         return answer.game_name;
     }
-
-    static async createPlot() {
-        const answer = await inquirer.prompt({
-            name: "create_plot",
-            type: "confirm",
-            message: "Do you want to plot the data?",
-        });
-
-        return answer.create_plot;
-    }
-    
 }
 
 export default InquirerForms;

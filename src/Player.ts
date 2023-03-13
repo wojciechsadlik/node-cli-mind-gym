@@ -22,18 +22,13 @@ class Player {
         this._playerDataManager.addGameResult(gameName, result);
     }
 
-    async showGameResults() {
+    async printGameResults() {
         const playedGames = this._playerDataManager.getPlayedGames;
         const chosenGameName = await InquirerForms.pickGameName(playedGames);
 
         if (chosenGameName === InquirerForms.BACK) return;
 
         this._playerDataManager.printGameResults(chosenGameName);
-
-        const createPlot = await InquirerForms.createPlot();
-        if (createPlot) {
-            this._playerDataManager.plotGameResults(chosenGameName);
-        }
     }
 }
 

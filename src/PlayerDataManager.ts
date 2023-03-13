@@ -49,14 +49,6 @@ class PlayerDataManager {
         else console.log(`No game records for ${gameName}`);
     }
 
-    plotGameResults(gameName: string) {
-        const gameResults = this._playerData.gameRecords.find(game =>
-            game.gameName === gameName);
-        
-        if (gameResults) PlayerDataPresenter.plotGameResults(gameResults);
-        else console.log(`No game records for ${gameName}`);
-    }
-
     get getPlayedGames(): string[] {
         const playedGames: string[] = [];
 

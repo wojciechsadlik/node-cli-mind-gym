@@ -23,7 +23,7 @@ class GameManager {
             if (option === InquirerForms.EXIT)
                 break;
             if (option === InquirerForms.DISPLAY_STATS)
-                await this._player.showGameResults();
+                await this._player.printGameResults();
             let currentGame = this._games.find(game => game.getName === option);
             if (currentGame) {
                 const result = await currentGame.Play();
