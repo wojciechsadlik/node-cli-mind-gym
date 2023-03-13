@@ -7,8 +7,8 @@ class PlayerDataPresenter {
         console.log(`${gameRecords.gameName} results:`);
         console.table(gameRecords.gameResults.map((res) => {
             return {
-                "accuracy (%)": Number(res.accuracy.toFixed(1)),
-                "time (s)": Number(res.time.toFixed(1))
+                "accuracy [%]": Number(res.accuracy.toFixed(1)),
+                "time [s]": Number(res.time.toFixed(1))
             };
         }));
     }
