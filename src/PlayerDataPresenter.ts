@@ -9,11 +9,12 @@ class PlayerDataPresenter {
 
         console.log(`${gameRecords.gameName} results:`)
 
-        console.log('time, accuracy');
-
-        for (let gameRes of gameRecords.gameResults) {
-            console.log(`${gameRes.time}, ${gameRes.accuracy}`);
-        }
+        console.table(gameRecords.gameResults.map((res) => {
+            return {
+                "accuracy (%)": Number(res.accuracy.toFixed(1)),
+                "time (s)": Number(res.time.toFixed(1))
+            }
+        }));
     }
 }
 
