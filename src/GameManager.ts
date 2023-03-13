@@ -30,6 +30,8 @@ class GameManager {
         while (true) {
             let option = await InquirerForms.mainMenu(this._games);
             if (option === InquirerForms.EXIT) break;
+            if (option === InquirerForms.DISPLAY_STATS)
+                await this._player.printGameResults();
 
             let currentGame = this._games.find(game => game.getName === option);
             

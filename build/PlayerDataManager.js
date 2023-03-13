@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import PlayerDataPresenter from "./PlayerDataPresenter.js";
 class PlayerDataManager {
     constructor(playerName) {
         this.SAVES_DIR = './saves/';
@@ -25,6 +26,20 @@ class PlayerDataManager {
             return;
         }
         gameResults.gameResults.push(result);
+    }
+    printGameResults(gameName) {
+        const gameResults = this._playerData.gameRecords.find(game => game.gameName === gameName);
+        if (gameResults)
+            PlayerDataPresenter.printGameResults(gameResults);
+        else
+            console.log(`No game records for ${gameName}`);
+    }
+    get getPlayedGames() {
+        const playedGames = [];
+        for (let gameRecords of this._playerData.gameRecords) {
+            playedGames.push(gameRecords.gameName);
+        }
+        return playedGames;
     }
 }
 export default PlayerDataManager;

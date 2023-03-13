@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import {IGameResult, ISaveStructure} from "./ISaveStructure.js";
+import PlayerDataPresenter from "./PlayerDataPresenter.js";
 
 class PlayerDataManager {
     private readonly SAVES_DIR = './saves/';
@@ -38,6 +39,24 @@ class PlayerDataManager {
         }
 
         gameResults.gameResults.push(result);
+    }
+
+    printGameResults(gameName: string) {
+        const gameResults = this._playerData.gameRecords.find(game =>
+            game.gameName === gameName);
+        
+        if (gameResults) PlayerDataPresenter.printGameResults(gameResults);
+        else console.log(`No game records for ${gameName}`);
+    }
+
+    get getPlayedGames(): string[] {
+        const playedGames: string[] = [];
+
+        for (let gameRecords of this._playerData.gameRecords) {
+            playedGames.push(gameRecords.gameName);
+        }
+
+        return playedGames;
     }
 }
 

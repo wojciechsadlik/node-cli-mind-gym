@@ -4,6 +4,7 @@ import IGame from "./IGame.js";
 abstract class InquirerForms {
     static readonly EXIT = "Exit";
     static readonly DISPLAY_STATS = "Display stats";
+    static readonly BACK = "Back";
 
     static async getName(): Promise<string> {
         const answer = await inquirer.prompt({
@@ -24,7 +25,7 @@ abstract class InquirerForms {
         const answer = await inquirer.prompt({
             name: "chosen_option",
             type: "list",
-            message: "Pick a game",
+            message: "Pick an option",
             choices: Array.from(games, game => game.getName)
                         .concat([this.DISPLAY_STATS])
                         .concat([this.EXIT])
@@ -54,6 +55,17 @@ abstract class InquirerForms {
         });
     
         return answer.answer;
+    }
+
+    static async pickGameName(gameNames: string[]): Promise<string> {
+        const answer = await inquirer.prompt({
+            name: "game_name",
+            type: "list",
+            message: "Which game?",
+            choices: gameNames.concat(this.BACK)
+        });
+
+        return answer.game_name;
     }
 }
 
