@@ -21,5 +21,10 @@ class Player {
             return;
         this._playerDataManager.printGameResults(chosenGameName);
     }
+    async clearGameRecords() {
+        const confirmed = await InquirerForms.confirmClearRecords();
+        if (confirmed)
+            this._playerDataManager.clearGameRecords();
+    }
 }
 export default Player;

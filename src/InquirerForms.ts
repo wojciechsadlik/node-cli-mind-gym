@@ -4,6 +4,7 @@ import IGame from "./IGame.js";
 abstract class InquirerForms {
     static readonly EXIT = "Exit";
     static readonly DISPLAY_STATS = "Display stats";
+    static readonly CLEAR_STATS = "Clear stats";
     static readonly BACK = "Back";
 
     static async getName(): Promise<string> {
@@ -27,8 +28,11 @@ abstract class InquirerForms {
             type: "list",
             message: "Pick an option",
             choices: Array.from(games, game => game.getName)
-                        .concat([this.DISPLAY_STATS])
-                        .concat([this.EXIT])
+                        .concat([
+                            this.DISPLAY_STATS,
+                            this.CLEAR_STATS,
+                            this.EXIT
+                        ])
         });
         
         return answer.chosen_option;
@@ -66,6 +70,16 @@ abstract class InquirerForms {
         });
 
         return answer.game_name;
+    }
+
+    static async confirmClearRecords(): Promise<boolean> {
+        const answer = await inquirer.prompt({
+            name: "confirmed",
+            type: "confirm",
+            message: "Do you want to clear your data?"
+        });
+
+        return answer.confirmed;
     }
 }
 

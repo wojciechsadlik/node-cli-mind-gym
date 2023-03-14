@@ -23,6 +23,7 @@ class PlayerDataManager {
 
     saveData() {
         fs.writeFileSync(this._fpath, JSON.stringify(this._playerData));
+        console.log(`Session saved to ${this._fpath}`);
     }
 
     addGameResult(gameName: string, result: IGameResult) {
@@ -57,6 +58,10 @@ class PlayerDataManager {
         }
 
         return playedGames;
+    }
+
+    clearGameRecords() {
+        this._playerData = {gameRecords: []};
     }
 }
 

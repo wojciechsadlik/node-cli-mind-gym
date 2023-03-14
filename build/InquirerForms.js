@@ -18,8 +18,11 @@ class InquirerForms {
             type: "list",
             message: "Pick an option",
             choices: Array.from(games, game => game.getName)
-                .concat([this.DISPLAY_STATS])
-                .concat([this.EXIT])
+                .concat([
+                this.DISPLAY_STATS,
+                this.CLEAR_STATS,
+                this.EXIT
+            ])
         });
         return answer.chosen_option;
     }
@@ -51,8 +54,17 @@ class InquirerForms {
         });
         return answer.game_name;
     }
+    static async confirmClearRecords() {
+        const answer = await inquirer.prompt({
+            name: "confirmed",
+            type: "confirm",
+            message: "Do you want to clear your data?"
+        });
+        return answer.confirmed;
+    }
 }
 InquirerForms.EXIT = "Exit";
 InquirerForms.DISPLAY_STATS = "Display stats";
+InquirerForms.CLEAR_STATS = "Clear stats";
 InquirerForms.BACK = "Back";
 export default InquirerForms;

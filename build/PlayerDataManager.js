@@ -15,6 +15,7 @@ class PlayerDataManager {
     }
     saveData() {
         fs.writeFileSync(this._fpath, JSON.stringify(this._playerData));
+        console.log(`Session saved to ${this._fpath}`);
     }
     addGameResult(gameName, result) {
         const gameResults = this._playerData.gameRecords.find(game => game.gameName === gameName);
@@ -40,6 +41,9 @@ class PlayerDataManager {
             playedGames.push(gameRecords.gameName);
         }
         return playedGames;
+    }
+    clearGameRecords() {
+        this._playerData = { gameRecords: [] };
     }
 }
 export default PlayerDataManager;

@@ -32,6 +32,8 @@ class GameManager {
             if (option === InquirerForms.EXIT) break;
             if (option === InquirerForms.DISPLAY_STATS)
                 await this._player.printGameResults();
+            if (option === InquirerForms.CLEAR_STATS)
+                await this._player.clearGameRecords();
 
             let currentGame = this._games.find(game => game.getName === option);
             
