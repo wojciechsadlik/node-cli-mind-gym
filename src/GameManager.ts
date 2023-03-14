@@ -1,6 +1,7 @@
 import LettersMemoryGame from "./CharMemoryGame.js";
 import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
+import NBackGame from "./NBackGame.js";
 import Player from "./Player.js";
 
 class GameManager {
@@ -10,6 +11,7 @@ class GameManager {
 
     private constructor() {
         this._games.push(new LettersMemoryGame());
+        this._games.push(new NBackGame());
     }
 
     static getInstance(): GameManager {

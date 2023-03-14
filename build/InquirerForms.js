@@ -40,6 +40,9 @@ class InquirerForms {
     static async charMemoryGetDifficulty() {
         return await this.getInt("Choose difficulty (1 or greater)", 1);
     }
+    static async nBackGetDifficulty(min, max) {
+        return await InquirerForms.getInt(`Choose difficulty [${min}, ${max}]`, min);
+    }
     static async getStringAnswer() {
         const answer = await inquirer.prompt({
             name: "answer",

@@ -55,6 +55,10 @@ abstract class InquirerForms {
         return await this.getInt("Choose difficulty (1 or greater)", 1);
     }
 
+    static async nBackGetDifficulty(min: number, max: number): Promise<number> {
+        return await InquirerForms.getInt(`Choose difficulty [${min}, ${max}]`, min);
+    }
+
     static async getStringAnswer(): Promise<string> {
         const answer = await inquirer.prompt({
             name: "answer",
