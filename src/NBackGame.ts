@@ -4,8 +4,8 @@ import { IGameResult } from "./IPlayerData.js";
 import { getRandomIntBetween } from "./utils.js";
 
 interface ITask {
-    questions: number[],
-    answers: boolean[]
+    question: number,
+    answer: boolean
 }
 
 class NBackGame implements IGame {
@@ -44,23 +44,34 @@ class NBackGame implements IGame {
         return difficulty;
     }
 
-    private generateTask(difficulty: number): ITask {
-        const task: number[] = [];
-        const answers: boolean[] = [];
+    private generateTask(difficulty: number): ITask[] {
+        const tasks: ITask[] = [];
 
         for (let i = 1; i <= this.NUMBER_OF_QUESTIONS; i++) {
             if (i > difficulty && Math.random() < this.N_BACK_PROBABILITY) {
-                task.push(task[i - difficulty - 1]);
-                answers.push(true);
+                const task: ITask = {
+                    question: tasks[i - difficulty - 1].question,
+                    answer: true
+                }
+
+                tasks.push(task);
             }
             else {
-                task.push(getRandomIntBetween(this.QUESTION_MIN, this.QUESTION_MAX));
-                if (i > difficulty) answers.push(task[i-1] === task[i-difficulty-1]);
-                else answers.push(false);
+                const task: ITask = {
+                    question: getRandomIntBetween(this.QUESTION_MIN, this.QUESTION_MAX),
+                    answer: false
+                }
+
+                if (i > difficulty
+                && task.question === tasks[i - difficulty - 1].question) {
+                    task.answer = true;
+                }
+                
+                tasks.push(task);
             }
         }
 
-        return {questions: task, answers: answers};
+        return tasks;
     }
 }
 
