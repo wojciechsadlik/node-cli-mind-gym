@@ -9,8 +9,8 @@ interface IGameRecords {
     gameResults: IGameResult[];
 }
 
-interface ISaveStructure {
+interface IPlayerData {
     gameRecords: IGameRecords[];
 }
 
-export {ISaveStructure, IGameRecords, IGameResult};
+export {IPlayerData, IGameRecords, IGameResult};

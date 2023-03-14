@@ -1,5 +1,5 @@
 import InquirerForms from "./InquirerForms.js";
-import { IGameResult } from "./ISaveStructure.js";
+import { IGameResult } from "./IPlayerData.js";
 import PlayerDataManager from "./PlayerDataManager.js";
 
 class Player {

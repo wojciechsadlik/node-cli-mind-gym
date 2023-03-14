@@ -1,4 +1,4 @@
-import { IGameRecords } from "./ISaveStructure.js";
+import { IGameRecords } from "./IPlayerData.js";
 
 class PlayerDataPresenter {
     static printGameResults(gameRecords: IGameRecords) {

@@ -1,4 +1,4 @@
-import { IGameResult } from "./ISaveStructure.js";
+import { IGameResult } from "./IPlayerData.js";
 
 interface IGame {
     get getName(): string;

@@ -2,7 +2,7 @@ import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
 import chalk from "chalk";
-import { IGameResult } from "./ISaveStructure.js";
+import { IGameResult } from "./IPlayerData.js";
 
 class LettersMemoryGame implements IGame {
     get getName(): string {

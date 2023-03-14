@@ -1,12 +1,12 @@
 import * as fs from "fs";
-import {IGameResult, ISaveStructure} from "./ISaveStructure.js";
+import {IGameResult, IPlayerData} from "./IPlayerData.js";
 import PlayerDataPresenter from "./PlayerDataPresenter.js";
 
 class PlayerDataManager {
     private readonly SAVES_DIR = './saves/';
     private readonly FILE_FORMAT = '.json';
     private readonly _fpath: string;
-    private _playerData: ISaveStructure;
+    private _playerData: IPlayerData;
 
     constructor(playerName: string) {
         this._fpath = this.SAVES_DIR + playerName + this.FILE_FORMAT;
