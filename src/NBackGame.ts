@@ -23,8 +23,11 @@ class NBackGame implements IGame {
     async Play(): Promise<IGameResult> {
         const difficulty = await this.getDifficulty();
 
-        const task = this.generateTask(difficulty);
-        console.log(task);
+        const tasks = this.generateTask(difficulty);
+
+        const correctAnswers = await this.giveTasks(tasks, difficulty);
+
+        console.log(correctAnswers);
 
         throw new Error("Method not implemented.");
     }
@@ -72,6 +75,22 @@ class NBackGame implements IGame {
         }
 
         return tasks;
+    }
+
+    private async giveTasks(tasks: ITask[], difficulty: number): Promise<number> {
+        let correctAnswers = 0;
+
+        for (let task of tasks) {
+            process.stdout.clearLine(0);
+            process.stdout.cursorTo(0);
+            process.stdout.write(` ${task.question} `);
+
+            const answer = await InquirerForms.confirm(`is it as ${difficulty} back?`);
+
+            if (answer === task.answer) correctAnswers++;
+        }
+
+        return correctAnswers;
     }
 }
 
