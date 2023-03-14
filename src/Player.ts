@@ -15,6 +15,7 @@ class Player {
     }
 
     handleExit() {
+        console.log(`Bye ${this._name}!`);
         this._playerDataManager.saveData();
     }
 

@@ -9,6 +9,7 @@ class Player {
         return this._name;
     }
     handleExit() {
+        console.log(`Bye ${this._name}!`);
         this._playerDataManager.saveData();
     }
     addGameResult(gameName, result) {
