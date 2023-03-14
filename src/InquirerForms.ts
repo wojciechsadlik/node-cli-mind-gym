@@ -38,17 +38,21 @@ abstract class InquirerForms {
         return answer.chosen_option;
     }
 
-    static async getNumberDifficulty(): Promise<number> {
+    static async getInt(msg?: string, def?: number): Promise<number> {
         const answer = await inquirer.prompt({
-            name: "difficulty",
+            name: "answer",
             type: "number",
-            message: "Enter difficulty (> 0)",
+            message: msg ? msg : "Enter a number",
             default() {
-                return 1;
+                return def ? def : 0;
             }
         });
     
-        return Math.floor(answer.difficulty);
+        return Math.floor(answer.answer);
+    }
+
+    static async charMemoryGetDifficulty(): Promise<number> {
+        return await this.getInt("Choose difficulty (1 or greater)", 1);
     }
 
     static async getStringAnswer(): Promise<string> {
@@ -72,11 +76,11 @@ abstract class InquirerForms {
         return answer.game_name;
     }
 
-    static async confirmClearRecords(): Promise<boolean> {
+    static async confirm(msg: string): Promise<boolean> {
         const answer = await inquirer.prompt({
             name: "confirmed",
             type: "confirm",
-            message: "Do you want to clear your data?"
+            message: msg
         });
 
         return answer.confirmed;

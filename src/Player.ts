@@ -33,7 +33,7 @@ class Player {
     }
 
     async clearGameRecords() {
-        const confirmed = await InquirerForms.confirmClearRecords();
+        const confirmed = await InquirerForms.confirm("Do you want to clear your data?");
 
         if (confirmed) this._playerDataManager.clearGameRecords();
     }

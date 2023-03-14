@@ -26,16 +26,19 @@ class InquirerForms {
         });
         return answer.chosen_option;
     }
-    static async getNumberDifficulty() {
+    static async getInt(msg, def) {
         const answer = await inquirer.prompt({
-            name: "difficulty",
+            name: "answer",
             type: "number",
-            message: "Enter difficulty (> 0)",
+            message: msg ? msg : "Enter a number",
             default() {
-                return 1;
+                return def ? def : 0;
             }
         });
-        return Math.floor(answer.difficulty);
+        return Math.floor(answer.answer);
+    }
+    static async charMemoryGetDifficulty() {
+        return await this.getInt("Choose difficulty (1 or greater)", 1);
     }
     static async getStringAnswer() {
         const answer = await inquirer.prompt({
@@ -54,11 +57,11 @@ class InquirerForms {
         });
         return answer.game_name;
     }
-    static async confirmClearRecords() {
+    static async confirm(msg) {
         const answer = await inquirer.prompt({
             name: "confirmed",
             type: "confirm",
-            message: "Do you want to clear your data?"
+            message: msg
         });
         return answer.confirmed;
     }

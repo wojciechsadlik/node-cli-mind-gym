@@ -35,11 +35,11 @@ class LettersMemoryGame implements IGame {
     }
 
     private async getDifficulty(): Promise<number> {
-        let difficulty: number = await InquirerForms.getNumberDifficulty();
+        let difficulty: number = await InquirerForms.charMemoryGetDifficulty();
 
         while (difficulty < 1) {
-            console.log("Difficulty has to be greater than 0");
-            difficulty = await InquirerForms.getNumberDifficulty();
+            console.log("Difficulty has to be 1 or greater");
+            difficulty = await InquirerForms.charMemoryGetDifficulty();
         }
 
         return difficulty;
