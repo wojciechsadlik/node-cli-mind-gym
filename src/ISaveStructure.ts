@@ -1,6 +1,7 @@
 interface IGameResult {
     time: number;
     accuracy: number;
+    difficulty: number;
 }
 
 interface IGameRecords {

@@ -80,7 +80,7 @@ class LettersMemoryGame implements IGame {
         const accuracy = (correct / task.length) * 100;
         const elapsedTimeS = elapsedTime / 1000;
 
-        return {accuracy: accuracy, time: elapsedTimeS};
+        return {accuracy: accuracy, time: elapsedTimeS, difficulty: task.length};
     }
 
     private showResult(task: string, answer: string, result: IGameResult): void {

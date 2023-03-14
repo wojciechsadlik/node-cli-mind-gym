@@ -53,7 +53,7 @@ class LettersMemoryGame {
         }
         const accuracy = (correct / task.length) * 100;
         const elapsedTimeS = elapsedTime / 1000;
-        return { accuracy: accuracy, time: elapsedTimeS };
+        return { accuracy: accuracy, time: elapsedTimeS, difficulty: task.length };
     }
     showResult(task, answer, result) {
         let taskFormatted = "";
