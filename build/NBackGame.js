@@ -1,10 +1,10 @@
 import InquirerForms from "./InquirerForms.js";
-import { getRandomIntBetween } from "./utils.js";
+import { getRandomIntBetween, nBackConfirmation } from "./utils.js";
 class NBackGame {
     constructor() {
         this.MIN_DIFFICULTY = 1;
         this.MAX_DIFFICULTY = 10;
-        this.NUMBER_OF_QUESTIONS = 20;
+        this.NUMBER_OF_QUESTIONS = 5;
         this.QUESTION_MIN = 10;
         this.QUESTION_MAX = 50;
         this.N_BACK_PROBABILITY = 0.4;
@@ -53,11 +53,12 @@ class NBackGame {
     }
     async giveTasks(tasks, difficulty) {
         let correctAnswers = 0;
+        console.log(`You'll see ${this.NUMBER_OF_QUESTIONS} numbers, press 'y' if a number is the same as ${difficulty} back or 'n' otherwise`);
         for (let task of tasks) {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
             process.stdout.write(` ${task.question} `);
-            const answer = await InquirerForms.confirm(`is it as ${difficulty} back?`);
+            const answer = await nBackConfirmation();
             if (answer === task.answer)
                 correctAnswers++;
         }

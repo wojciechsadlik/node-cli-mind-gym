@@ -28,6 +28,22 @@ export async function pressKeyToContinue() {
     }));
 }
 
+export async function nBackConfirmation() {
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    return await new Promise<boolean>(res => process.stdin.once('data', data => {
+        const byteArr = [...data];
+        if (byteArr.length > 0 && byteArr[0] === 3) {
+            console.log("^C Bye!")
+            process.exit(1);
+        };
+
+        process.stdin.setRawMode(false);
+        
+        res(byteArr[0] === 89 || byteArr[0] === 121);
+    }));
+}
+
 export const timer = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export const SMALL_A_UNICODE = 97;
