@@ -1,5 +1,5 @@
 import InquirerForms from "./InquirerForms.js";
-import { getRandomIntBetween, nBackConfirmation } from "./utils.js";
+import { getRandomIntBetween, yConfirmContinue } from "./utils.js";
 class NBackGame {
     constructor() {
         this.MIN_DIFFICULTY = 1;
@@ -67,7 +67,7 @@ class NBackGame {
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
             process.stdout.write(` ${i + 1}: ${task.question} `);
-            const answer = await nBackConfirmation();
+            const answer = await yConfirmContinue();
             if (answer === task.answer)
                 correctAnswers++;
         }

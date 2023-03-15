@@ -23,7 +23,7 @@ export async function pressKeyToContinue() {
         res();
     }));
 }
-export async function nBackConfirmation() {
+export async function yConfirmContinue() {
     process.stdin.setRawMode(true);
     process.stdin.resume();
     return await new Promise(res => process.stdin.once('data', data => {

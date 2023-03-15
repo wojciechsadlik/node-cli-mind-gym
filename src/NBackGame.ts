@@ -1,7 +1,7 @@
 import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
 import { IGameResult } from "./IPlayerData.js";
-import { getRandomIntBetween, nBackConfirmation } from "./utils.js";
+import { getRandomIntBetween, yConfirmContinue } from "./utils.js";
 
 interface ITask {
     question: number,
@@ -98,7 +98,7 @@ class NBackGame implements IGame {
             process.stdout.cursorTo(0);
             process.stdout.write(` ${i+1}: ${task.question} `);
 
-            const answer = await nBackConfirmation();
+            const answer = await yConfirmContinue();
 
             if (answer === task.answer) correctAnswers++;
         }
