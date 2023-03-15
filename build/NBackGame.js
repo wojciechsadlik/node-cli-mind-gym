@@ -4,7 +4,7 @@ class NBackGame {
     constructor() {
         this.MIN_DIFFICULTY = 1;
         this.MAX_DIFFICULTY = 10;
-        this.NUMBER_OF_QUESTIONS = 5;
+        this.NUMBER_OF_QUESTIONS = 20;
         this.QUESTION_MIN = 10;
         this.QUESTION_MAX = 50;
         this.N_BACK_PROBABILITY = 0.4;
@@ -15,9 +15,17 @@ class NBackGame {
     async Play() {
         const difficulty = await this.getDifficulty();
         const tasks = this.generateTask(difficulty);
+        const startTime = Date.now();
         const correctAnswers = await this.giveTasks(tasks, difficulty);
-        console.log(correctAnswers);
-        throw new Error("Method not implemented.");
+        const elapsedTime = (Date.now() - startTime) / 1000;
+        const accuracy = (correctAnswers / this.NUMBER_OF_QUESTIONS) * 100;
+        console.log(`Accuracy: ${accuracy.toFixed(1)}%`);
+        console.log(`Time: ${elapsedTime.toFixed(1)}s`);
+        return {
+            accuracy: accuracy,
+            time: elapsedTime,
+            difficulty: difficulty
+        };
     }
     async getDifficulty() {
         let difficulty = await InquirerForms.nBackGetDifficulty(this.MIN_DIFFICULTY, this.MAX_DIFFICULTY);
@@ -54,14 +62,16 @@ class NBackGame {
     async giveTasks(tasks, difficulty) {
         let correctAnswers = 0;
         console.log(`You'll see ${this.NUMBER_OF_QUESTIONS} numbers, press 'y' if a number is the same as ${difficulty} back or 'n' otherwise`);
-        for (let task of tasks) {
+        for (let i = 0; i < tasks.length; i++) {
+            const task = tasks[i];
             process.stdout.clearLine(0);
             process.stdout.cursorTo(0);
-            process.stdout.write(` ${task.question} `);
+            process.stdout.write(` ${i + 1}: ${task.question} `);
             const answer = await nBackConfirmation();
             if (answer === task.answer)
                 correctAnswers++;
         }
+        process.stdout.write('\n');
         return correctAnswers;
     }
 }
