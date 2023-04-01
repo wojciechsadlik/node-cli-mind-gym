@@ -91,7 +91,7 @@ class NBackGame implements IGame {
     private async giveTasks(tasks: ITask[], difficulty: number): Promise<number> {
         let correctAnswers = 0;
 
-        console.log(`You'll see ${this.NUMBER_OF_QUESTIONS} numbers, press 'y' if a number is the same as ${difficulty} back or 'n' otherwise`);
+        console.log(`You'll see ${this.NUMBER_OF_QUESTIONS} numbers, press 'y' if a number is the same as ${difficulty} back or any other key otherwise`);
         for (let i = 0; i < tasks.length; i++) {
             const task = tasks[i];
             process.stdout.clearLine(0);
