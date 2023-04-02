@@ -13,7 +13,7 @@ class PlayerDataManager {
         
         if (!fs.existsSync(this.SAVES_DIR)) fs.mkdirSync(this.SAVES_DIR);
 
-        this._playerData = {gameRecords: []};
+        this._playerData = {gameRecords: {}};
 
         if (fs.existsSync(this._fpath)) {
             const fileRead = fs.readFileSync(this._fpath, {flag: 'r', encoding: 'utf-8'});
@@ -27,46 +27,39 @@ class PlayerDataManager {
     }
 
     addGameResult(gameName: string, difficulty: number, result: IGameResult) {
-        const gameRecords = this._playerData.gameRecords.find(game =>
-            game.gameName === gameName);
+        const gameRecords = this._playerData.gameRecords[gameName];
 
         if (!gameRecords) {
-            this._playerData.gameRecords.push({
-                gameName: gameName,
-                gameResults: {[difficulty]: [result]}
-            });
+            this._playerData.gameRecords[gameName] = {
+                [difficulty]: [result]
+            };
 
             return;
         }
 
-        if (difficulty in gameRecords.gameResults) {
-            gameRecords.gameResults[difficulty].push(result);
+        if (difficulty in gameRecords) {
+            gameRecords[difficulty].push(result);
         }
         else {
-            gameRecords.gameResults[difficulty] = [result];
+            gameRecords[difficulty] = [result];
         }
     }
 
     printGameResults(gameName: string) {
-        const gameResults = this._playerData.gameRecords.find(game =>
-            game.gameName === gameName);
+        throw new Error("Method not implemented");
+        // const gameResults = this._playerData.gameRecords.find(game =>
+        //     game.gameName === gameName);
         
-        if (gameResults) PlayerDataPresenter.printGameResults(gameResults);
-        else console.log(`No game records for ${gameName}`);
+        // if (gameResults) PlayerDataPresenter.printGameResults(gameResults);
+        // else console.log(`No game records for ${gameName}`);
     }
 
     get getPlayedGames(): string[] {
-        const playedGames: string[] = [];
-
-        for (let gameRecords of this._playerData.gameRecords) {
-            playedGames.push(gameRecords.gameName);
-        }
-
-        return playedGames;
+        return Object.keys(this._playerData.gameRecords);
     }
 
     clearGameRecords() {
-        this._playerData = {gameRecords: []};
+        this._playerData = {gameRecords: {}};
     }
 }
 

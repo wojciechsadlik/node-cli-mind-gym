@@ -1,7 +1,7 @@
-import { IGameRecords } from "./IPlayerData.js";
+import { DifficultyResults } from "./IPlayerData.js";
 
 class PlayerDataPresenter {
-    static printGameResults(gameRecords: IGameRecords) {
+    static printGameResults(gameRecords: DifficultyResults) {
         throw new Error("Method not implemented");
         // if (!gameRecords.gameResults.length) {
         //     console.log(`No ${gameRecords.gameName} records...`);

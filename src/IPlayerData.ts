@@ -3,13 +3,10 @@ interface IGameResult {
     accuracy: number;
 }
 
-interface IGameRecords {
-    gameName: string;
-    gameResults: {[difficulty: number]: IGameResult[]};
-}
+type DifficultyResults = Record<number, IGameResult[]>;
 
 interface IPlayerData {
-    gameRecords: IGameRecords[];
+    gameRecords: Record<string, DifficultyResults>;
 }
 
-export {IPlayerData, IGameRecords, IGameResult};
+export {IPlayerData, DifficultyResults, IGameResult};

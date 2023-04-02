@@ -13,9 +13,8 @@ describe('PlayerDataManager', () => {
 
     const gameResult: IGameResult = {accuracy: 80, time: 10};
 
-    const expectedPlayerData: IPlayerData = {gameRecords: []};
+    const expectedPlayerData: IPlayerData = {gameRecords: {}};
     
-
     it("save file is created on save", () => {
         if (fs.existsSync(savePath))
             fs.unlinkSync(savePath)
@@ -39,12 +38,7 @@ describe('PlayerDataManager', () => {
 
         playerDataManager.saveData();
 
-        expectedPlayerData.gameRecords.push({
-            gameName: "N-Back",
-            gameResults: {
-                2: [gameResult]
-            }
-        });
+        expectedPlayerData.gameRecords["N-Back"] = {2: [gameResult]};
 
         expect(readSave(savePath))
             .toMatchObject(expectedPlayerData);
@@ -56,8 +50,7 @@ describe('PlayerDataManager', () => {
 
         playerDataManager.saveData();
 
-        expectedPlayerData.gameRecords.find(gr => gr.gameName === "N-Back")
-            ?.gameResults[2].push(gameResult);
+        expectedPlayerData.gameRecords["N-Back"][2].push(gameResult);
 
         expect(readSave(savePath))
             .toMatchObject(expectedPlayerData);
@@ -69,10 +62,7 @@ describe('PlayerDataManager', () => {
 
         playerDataManager.saveData();
 
-        const nbackResults = expectedPlayerData.gameRecords.find(
-            gr => gr.gameName === "N-Back")?.gameResults;
-            
-        if (nbackResults) nbackResults[3] = [gameResult];
+        expectedPlayerData.gameRecords["N-Back"][3] = [gameResult];
 
         expect(readSave(savePath))
             .toMatchObject(expectedPlayerData);
@@ -84,16 +74,16 @@ describe('PlayerDataManager', () => {
 
         playerDataManager.saveData();
 
-        expectedPlayerData.gameRecords.push({
-            gameName: "Letters Memory",
-            gameResults: {
-                2: [gameResult]
-            }
-        });
+        expectedPlayerData.gameRecords["Letters Memory"] = {2: [gameResult]};
 
         expect(readSave(savePath))
             .toMatchObject(expectedPlayerData);
         
+    });
+
+    it("getting played games", () => {
+        expect(playerDataManager.getPlayedGames)
+            .toMatchObject(["N-Back", "Letters Memory"]);
     });
 
     it("printing results", () => {
