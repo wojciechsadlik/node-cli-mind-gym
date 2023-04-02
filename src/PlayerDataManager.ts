@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import {IGameResult, IPlayerData} from "./IPlayerData.js";
-import PlayerDataPresenter from "./PlayerDataPresenter.js";
+import {IGameResult, IPlayerData} from "./IPlayerData";
+import PlayerDataPresenter from "./PlayerDataPresenter";
 
 class PlayerDataManager {
     private readonly SAVES_DIR = './saves/';
@@ -27,19 +27,20 @@ class PlayerDataManager {
     }
 
     addGameResult(gameName: string, result: IGameResult) {
-        const gameResults = this._playerData.gameRecords.find(game =>
-            game.gameName === gameName);
+        throw new Error("Method not implemented");
+        // const gameResults = this._playerData.gameRecords.find(game =>
+        //     game.gameName === gameName);
 
-        if (!gameResults) {
-            this._playerData.gameRecords.push({
-                gameName: gameName,
-                gameResults: [result]
-            });
+        // if (!gameResults) {
+        //     this._playerData.gameRecords.push({
+        //         gameName: gameName,
+        //         gameResults: [result]
+        //     });
 
-            return;
-        }
+        //     return;
+        // }
 
-        gameResults.gameResults.push(result);
+        // gameResults.gameResults.push(result);
     }
 
     printGameResults(gameName: string) {

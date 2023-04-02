@@ -1,12 +1,11 @@
 interface IGameResult {
     time: number;
     accuracy: number;
-    difficulty: number;
 }
 
 interface IGameRecords {
     gameName: string;
-    gameResults: IGameResult[];
+    gameResults: {[difficulty: number]: IGameResult[]};
 }
 
 interface IPlayerData {
