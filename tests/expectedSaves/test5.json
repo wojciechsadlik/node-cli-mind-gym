@@ -1,0 +1,36 @@
+{
+  "gameRecords": [
+    {
+      "gameName": "N-Back",
+      "gameResults": {
+        "2": [
+          {
+            "accuracy": 80,
+            "time": 10
+          },
+          {
+            "accuracy": 80,
+            "time": 10
+          }
+        ],
+        "3": [
+          {
+            "accuracy": 80,
+            "time": 10
+          }
+        ]
+      }
+    },
+    {
+      "gameName": "Letters Memory",
+      "gameResults": {
+        "2": [
+          {
+            "accuracy": 80,
+            "time": 10
+          }
+        ]
+      }
+    }
+  ]
+}

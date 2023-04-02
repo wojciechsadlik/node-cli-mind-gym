@@ -22,25 +22,29 @@ class PlayerDataManager {
     }
 
     saveData() {
-        fs.writeFileSync(this._fpath, JSON.stringify(this._playerData));
+        fs.writeFileSync(this._fpath, JSON.stringify(this._playerData, null, 2));
         console.log(`Session saved to ${this._fpath}`);
     }
 
-    addGameResult(gameName: string, result: IGameResult) {
-        throw new Error("Method not implemented");
-        // const gameResults = this._playerData.gameRecords.find(game =>
-        //     game.gameName === gameName);
+    addGameResult(gameName: string, difficulty: number, result: IGameResult) {
+        const gameRecords = this._playerData.gameRecords.find(game =>
+            game.gameName === gameName);
 
-        // if (!gameResults) {
-        //     this._playerData.gameRecords.push({
-        //         gameName: gameName,
-        //         gameResults: [result]
-        //     });
+        if (!gameRecords) {
+            this._playerData.gameRecords.push({
+                gameName: gameName,
+                gameResults: {[difficulty]: [result]}
+            });
 
-        //     return;
-        // }
+            return;
+        }
 
-        // gameResults.gameResults.push(result);
+        if (difficulty in gameRecords.gameResults) {
+            gameRecords.gameResults[difficulty].push(result);
+        }
+        else {
+            gameRecords.gameResults[difficulty] = [result];
+        }
     }
 
     printGameResults(gameName: string) {
