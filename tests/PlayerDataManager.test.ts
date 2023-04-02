@@ -8,77 +8,97 @@ function readSave(path: string): IPlayerData {
 }
 
 describe('PlayerDataManager', () => {
-    const playerData = new PlayerDataManager("test");
+    const playerDataManager = new PlayerDataManager("test");
     const savePath = "./saves/test.json";
 
     const gameResult: IGameResult = {accuracy: 80, time: 10};
 
-    const expectedTest1Path = "./tests/expectedSaves/test1.json";
-    const expectedTest2Path = "./tests/expectedSaves/test2.json";
-    const expectedTest3Path = "./tests/expectedSaves/test3.json";
-    const expectedTest4Path = "./tests/expectedSaves/test4.json";
-    const expectedTest5Path = "./tests/expectedSaves/test5.json";
+    const expectedPlayerData: IPlayerData = {gameRecords: []};
     
 
     it("save file is created on save", () => {
         if (fs.existsSync(savePath))
             fs.unlinkSync(savePath)
 
-        playerData.saveData();
+        playerDataManager.saveData();
 
         expect(fs.existsSync(savePath)).toBe(true);
     });
 
     it("player data is cleared", () => {
-        playerData.clearGameRecords();
+        playerDataManager.clearGameRecords();
 
-        playerData.saveData();
+        playerDataManager.saveData();
 
         expect(readSave(savePath))
-            .toMatchObject(readSave(expectedTest1Path));
+            .toMatchObject(expectedPlayerData);
     });
 
     it("game result is added to player data", () => {
-        playerData.addGameResult("N-Back", 2, gameResult);
+        playerDataManager.addGameResult("N-Back", 2, gameResult);
 
-        playerData.saveData();
+        playerDataManager.saveData();
+
+        expectedPlayerData.gameRecords.push({
+            gameName: "N-Back",
+            gameResults: {
+                2: [gameResult]
+            }
+        });
 
         expect(readSave(savePath))
-            .toMatchObject(readSave(expectedTest2Path));
+            .toMatchObject(expectedPlayerData);
         
     });
 
     it("same game result added", () => {
-        playerData.addGameResult("N-Back", 2, gameResult);
+        playerDataManager.addGameResult("N-Back", 2, gameResult);
 
-        playerData.saveData();
+        playerDataManager.saveData();
+
+        expectedPlayerData.gameRecords.find(gr => gr.gameName === "N-Back")
+            ?.gameResults[2].push(gameResult);
 
         expect(readSave(savePath))
-            .toMatchObject(readSave(expectedTest3Path));
+            .toMatchObject(expectedPlayerData);
         
     });
 
     it("different difficulty result added", () => {
-        playerData.addGameResult("N-Back", 3, gameResult);
+        playerDataManager.addGameResult("N-Back", 3, gameResult);
 
-        playerData.saveData();
+        playerDataManager.saveData();
+
+        const nbackResults = expectedPlayerData.gameRecords.find(
+            gr => gr.gameName === "N-Back")?.gameResults;
+            
+        if (nbackResults) nbackResults[3] = [gameResult];
 
         expect(readSave(savePath))
-            .toMatchObject(readSave(expectedTest4Path));
+            .toMatchObject(expectedPlayerData);
         
     });
 
     it("different game name result added", () => {
-        playerData.addGameResult("Letters Memory", 2, gameResult);
+        playerDataManager.addGameResult("Letters Memory", 2, gameResult);
 
-        playerData.saveData();
+        playerDataManager.saveData();
+
+        expectedPlayerData.gameRecords.push({
+            gameName: "Letters Memory",
+            gameResults: {
+                2: [gameResult]
+            }
+        });
 
         expect(readSave(savePath))
-            .toMatchObject(readSave(expectedTest5Path));
+            .toMatchObject(expectedPlayerData);
         
     });
 
     it("printing results", () => {
-        playerData.printGameResults("N-Back");
+        console.log(JSON.stringify(expectedPlayerData, null, 2));
+
+        playerDataManager.printGameResults("N-Back");
     });
 });
