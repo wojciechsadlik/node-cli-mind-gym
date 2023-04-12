@@ -1,6 +1,6 @@
 import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
-import { IGameResult } from "./IPlayerData.js";
+import { IGameResultDifficulty } from "./IPlayerData.js";
 import { getRandomIntBetween, yConfirmContinue } from "./utils.js";
 
 interface ITask {
@@ -20,7 +20,7 @@ class NBackGame implements IGame {
         return "N-Back";
     }
 
-    async Play(): Promise<IGameResult> {
+    async Play(): Promise<IGameResultDifficulty> {
         const difficulty = await this.getDifficulty();
 
         const tasks = this.generateTask(difficulty);

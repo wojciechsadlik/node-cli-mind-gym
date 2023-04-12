@@ -1,8 +1,8 @@
-import { IGameResult } from "./IPlayerData.js";
+import { IGameResultDifficulty } from "./IPlayerData.js";
 
 interface IGame {
     get getName(): string;
-    Play(): Promise<IGameResult>;
+    Play(): Promise<IGameResultDifficulty>;
 }
 
 export default IGame;

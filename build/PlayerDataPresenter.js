@@ -1,17 +1,17 @@
 class PlayerDataPresenter {
-    static printGameResults(gameRecords) {
-        if (!gameRecords.gameResults.length) {
-            console.log(`No ${gameRecords.gameName} records...`);
-            return;
+    static printGameResults(gameName, gameRecords) {
+        const difficultyResults = [];
+        for (const [diff, results] of Object.entries(gameRecords)) {
+            for (const res of results) {
+                difficultyResults.push({
+                    "difficulty": Number(diff),
+                    "accuracy [%]": Number(res.accuracy.toFixed(1)),
+                    "time [s]": Number(res.time.toFixed(2)),
+                });
+            }
         }
-        console.log(`${gameRecords.gameName} results:`);
-        console.table(gameRecords.gameResults.map((res) => {
-            return {
-                "difficulty": res.difficulty,
-                "accuracy [%]": Number(res.accuracy.toFixed(1)),
-                "time [s]": Number(res.time.toFixed(1))
-            };
-        }));
+        console.log(`${gameName} results:`);
+        console.table(difficultyResults);
     }
 }
 export default PlayerDataPresenter;

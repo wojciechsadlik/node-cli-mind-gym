@@ -31,7 +31,7 @@ class GameManager {
             let currentGame = this._games.find(game => game.getName === option);
             if (currentGame) {
                 const result = await currentGame.Play();
-                this._player.addGameResult(currentGame.getName, result);
+                this._player.addGameResult(currentGame.getName, result.difficulty, result);
             }
         }
     }

@@ -1,22 +1,21 @@
-import { DifficultyResults } from "./IPlayerData.js";
+import { DifficultyResults, IGameResult, IGameResultDifficulty } from "./IPlayerData.js";
 
 class PlayerDataPresenter {
-    static printGameResults(gameRecords: DifficultyResults) {
-        throw new Error("Method not implemented");
-        // if (!gameRecords.gameResults.length) {
-        //     console.log(`No ${gameRecords.gameName} records...`);
-        //     return;
-        // }
+    static printGameResults(gameName: string, gameRecords: DifficultyResults) {
+        const difficultyResults: {}[] = [];
 
-        // console.log(`${gameRecords.gameName} results:`)
+        for (const [diff, results] of Object.entries(gameRecords)) {
+            for (const res of results) {
+                difficultyResults.push({
+                    "difficulty": Number(diff),
+                    "accuracy [%]": Number(res.accuracy.toFixed(1)),
+                    "time [s]": Number(res.time.toFixed(2)),
+                });
+            }
+        }
 
-        // console.table(gameRecords.gameResults.map((res) => {
-        //     return {
-        //         "difficulty": res.difficulty,
-        //         "accuracy [%]": Number(res.accuracy.toFixed(1)),
-        //         "time [s]": Number(res.time.toFixed(1))
-        //     }
-        // }));
+        console.log(`${gameName} results:`)
+        console.table(difficultyResults);
     }
 }
 

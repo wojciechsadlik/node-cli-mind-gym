@@ -1,8 +1,7 @@
 import * as fs from "fs";
-import PlayerDataManager from "../src/PlayerDataManager";
-import {IGameResult, IPlayerData} from "../src/IPlayerData";
+import PlayerDataManager from "../build/PlayerDataManager";
 
-function readSave(path: string): IPlayerData {
+function readSave(path) {
     const fileRead = fs.readFileSync(path, {flag: 'r', encoding: 'utf-8'});
     return JSON.parse(fileRead);
 }
@@ -11,9 +10,9 @@ describe('PlayerDataManager', () => {
     const playerDataManager = new PlayerDataManager("test");
     const savePath = "./saves/test.json";
 
-    const gameResult: IGameResult = {accuracy: 80, time: 10};
+    const gameResult = {accuracy: 80, time: 10};
 
-    const expectedPlayerData: IPlayerData = {gameRecords: {}};
+    const expectedPlayerData = {gameRecords: {}};
     
     it("save file is created on save", () => {
         if (fs.existsSync(savePath))
@@ -87,7 +86,8 @@ describe('PlayerDataManager', () => {
     });
 
     it("printing results", () => {
-        console.log(JSON.stringify(expectedPlayerData, null, 2));
+        console.table(expectedPlayerData);
+        console.table(expectedPlayerData.gameRecords["N-Back"]);
 
         playerDataManager.printGameResults("N-Back");
     });

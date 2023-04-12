@@ -2,14 +2,14 @@ import IGame from "./IGame.js";
 import InquirerForms from "./InquirerForms.js";
 import { getRandomIntArrBetween, SMALL_A_UNICODE, SMALL_Z_UNICODE, pressKeyToContinue } from "./utils.js";
 import chalk from "chalk";
-import { IGameResult } from "./IPlayerData.js";
+import { IGameResult, IGameResultDifficulty } from "./IPlayerData.js";
 
 class LettersMemoryGame implements IGame {
     get getName(): string {
         return "Letters Memory";
     }
 
-    async Play(): Promise<IGameResult> {
+    async Play(): Promise<IGameResultDifficulty> {
         const difficulty = await this.getDifficulty();
 
         const task = this.generateTask(difficulty);
@@ -69,7 +69,7 @@ class LettersMemoryGame implements IGame {
         return await InquirerForms.getStringAnswer();
     }
 
-    private calculateResult(task: string, answer: string, elapsedTime: number): IGameResult {
+    private calculateResult(task: string, answer: string, elapsedTime: number): IGameResultDifficulty {
         const checkLength = Math.min(task.length, answer.length);
         let correct = 0;
         for (let i = 0; i < checkLength; i++) {

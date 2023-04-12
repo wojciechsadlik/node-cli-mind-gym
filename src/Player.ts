@@ -19,8 +19,8 @@ class Player {
         this._playerDataManager.saveData();
     }
 
-    addGameResult(gameName: string, result: IGameResult) {
-        this._playerDataManager.addGameResult(gameName, result);
+    addGameResult(gameName: string, difficulty: number, result: IGameResult) {
+        this._playerDataManager.addGameResult(gameName, difficulty, result);
     }
 
     async printGameResults() {

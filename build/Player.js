@@ -12,8 +12,8 @@ class Player {
         console.log(`Bye ${this._name}!`);
         this._playerDataManager.saveData();
     }
-    addGameResult(gameName, result) {
-        this._playerDataManager.addGameResult(gameName, result);
+    addGameResult(gameName, difficulty, result) {
+        this._playerDataManager.addGameResult(gameName, difficulty, result);
     }
     async printGameResults() {
         const playedGames = this._playerDataManager.getPlayedGames;
