@@ -32,15 +32,22 @@ class PlayerDataManager {
             gameRecords[difficulty] = [result];
         }
     }
-    printGameResults(gameName) {
+    printGameResults(gameName, difficulty) {
         const gameResults = this._playerData.gameRecords[gameName];
-        if (gameResults)
-            PlayerDataPresenter.printGameResults(gameName, gameResults);
+        if (gameResults) {
+            if (!difficulty)
+                PlayerDataPresenter.printGameResultsAll(gameName, gameResults);
+            else
+                PlayerDataPresenter.printGameResultDifficulty(gameName, gameResults, difficulty);
+        }
         else
             console.log(`No game records for ${gameName}`);
     }
     get getPlayedGames() {
         return Object.keys(this._playerData.gameRecords);
+    }
+    getPlayedDifficulties(gameName) {
+        return Object.keys(this._playerData.gameRecords[gameName]);
     }
     clearGameRecords() {
         this._playerData = { gameRecords: {} };

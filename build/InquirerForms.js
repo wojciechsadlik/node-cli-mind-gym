@@ -60,6 +60,16 @@ class InquirerForms {
         });
         return answer.game_name;
     }
+    static async pickGameDifficulty(difficulties, all) {
+        const answer = await inquirer.prompt({
+            name: "game_difficulty",
+            type: "list",
+            message: "Which difficulty?",
+            choices: difficulties.concat(all ? this.ALL : [])
+                .concat(this.BACK)
+        });
+        return answer.game_difficulty;
+    }
     static async confirm(msg) {
         const answer = await inquirer.prompt({
             name: "confirmed",
@@ -73,4 +83,5 @@ InquirerForms.EXIT = "Exit";
 InquirerForms.DISPLAY_STATS = "Display stats";
 InquirerForms.CLEAR_STATS = "Clear stats";
 InquirerForms.BACK = "Back";
+InquirerForms.ALL = "All";
 export default InquirerForms;

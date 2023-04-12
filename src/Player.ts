@@ -29,7 +29,17 @@ class Player {
 
         if (chosenGameName === InquirerForms.BACK) return;
 
-        this._playerDataManager.printGameResults(chosenGameName);
+        const playedDifficulties = this._playerDataManager.getPlayedDifficulties(chosenGameName);
+        const chosenDifficulty = await InquirerForms.pickGameDifficulty(playedDifficulties, true);
+
+        if (chosenDifficulty === InquirerForms.BACK) return;
+
+        if (chosenDifficulty === InquirerForms.ALL) {
+            this._playerDataManager.printGameResults(chosenGameName);
+        }
+        else {
+            this._playerDataManager.printGameResults(chosenGameName, Number(chosenDifficulty));
+        }
     }
 
     async clearGameRecords() {

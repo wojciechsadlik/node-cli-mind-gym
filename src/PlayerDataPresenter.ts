@@ -1,7 +1,7 @@
 import { DifficultyResults, IGameResult, IGameResultDifficulty } from "./IPlayerData.js";
 
 class PlayerDataPresenter {
-    static printGameResults(gameName: string, gameRecords: DifficultyResults) {
+    static printGameResultsAll(gameName: string, gameRecords: DifficultyResults) {
         const difficultyResults: {}[] = [];
 
         for (const [diff, results] of Object.entries(gameRecords)) {
@@ -15,6 +15,20 @@ class PlayerDataPresenter {
         }
 
         console.log(`${gameName} results:`)
+        console.table(difficultyResults);
+    }
+
+    static printGameResultDifficulty(gameName: string, gameRecords: DifficultyResults, difficulty: number) {
+        const difficultyResults: {}[] = [];
+
+        for (const res of gameRecords[difficulty]) {
+            difficultyResults.push({
+                "accuracy [%]": Number(res.accuracy.toFixed(1)),
+                "time [s]": Number(res.time.toFixed(2)),
+            });
+        }
+
+        console.log(`${gameName} results at ${difficulty} difficulty:`)
         console.table(difficultyResults);
     }
 }

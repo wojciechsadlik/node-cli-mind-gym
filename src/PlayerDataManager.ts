@@ -45,15 +45,22 @@ class PlayerDataManager {
         }
     }
 
-    printGameResults(gameName: string) {
+    printGameResults(gameName: string, difficulty?: number) {
         const gameResults = this._playerData.gameRecords[gameName];
         
-        if (gameResults) PlayerDataPresenter.printGameResults(gameName, gameResults);
+        if (gameResults) {
+            if (!difficulty) PlayerDataPresenter.printGameResultsAll(gameName, gameResults);
+            else PlayerDataPresenter.printGameResultDifficulty(gameName, gameResults, difficulty);
+        }
         else console.log(`No game records for ${gameName}`);
     }
 
     get getPlayedGames(): string[] {
         return Object.keys(this._playerData.gameRecords);
+    }
+
+    getPlayedDifficulties(gameName: string): string[] {
+        return Object.keys(this._playerData.gameRecords[gameName]);
     }
 
     clearGameRecords() {

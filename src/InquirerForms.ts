@@ -6,6 +6,7 @@ abstract class InquirerForms {
     static readonly DISPLAY_STATS = "Display stats";
     static readonly CLEAR_STATS = "Clear stats";
     static readonly BACK = "Back";
+    static readonly ALL = "All";
 
     static async getName(): Promise<string> {
         const answer = await inquirer.prompt({
@@ -78,6 +79,18 @@ abstract class InquirerForms {
         });
 
         return answer.game_name;
+    }
+
+    static async pickGameDifficulty(difficulties: string[], all?: boolean): Promise<string> {
+        const answer = await inquirer.prompt({
+            name: "game_difficulty",
+            type: "list",
+            message: "Which difficulty?",
+            choices: difficulties.concat(all ? this.ALL : [])
+                                    .concat(this.BACK)
+        });
+
+        return answer.game_difficulty;
     }
 
     static async confirm(msg: string): Promise<boolean> {
